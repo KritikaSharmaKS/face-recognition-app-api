@@ -69,6 +69,21 @@ app.get('/profile/:id', (req, res) => {
     }
 });
 
+//image
+app.put('/image', (req,res) => {
+    const { id } = req.body;
+    let found = false;
+    database.users.forEach(element => {
+        if(element.id === id){
+            found = true;
+            element.entries++;
+            return res.json(element.entries);
+        }
+    });
+    if(!found){
+        res.status(404).json("user not found");
+    }
+});
 
 app.listen(3000, () => {
     console.log('app is running at port 3000');
